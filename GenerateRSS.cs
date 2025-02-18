@@ -1,9 +1,9 @@
+using System.Globalization;
 using System.Text;
 
 // variables
 const string url     = "https://www.limesvolleybal.nl/";
-const string output  = "rss.xml";
-const uint items     = 0;
+const string output  = "Docs/rss.xml";
 
 // attempting to create xml from existing website. 
 try
@@ -19,7 +19,8 @@ try
     string rssContent = GenerateRss(articles, url);
 
     // Step 4: Save to file
-    string path = Path.Combine(Directory.GetCurrentDirectory(), output); 
+    string docsDirectory = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName);
+    string path = Path.Combine(docsDirectory, output); 
     File.WriteAllText(path, rssContent, Encoding.UTF8);
 
     Console.WriteLine("✅ RSS feed generated successfully.");
@@ -33,6 +34,7 @@ static string ExtractArticles(string content)
 {
     // concatenate
     StringBuilder result = new();
+    CultureInfo culture = new("nl-NL");
 
     // find start of articles
     const string startArticle = "<article class=";
@@ -69,7 +71,7 @@ static string ExtractArticles(string content)
                 <title>{title.String}</title>
                 <link>{url + link.String}</link>
                 <description>{description.String}</description>
-                <pubDate>{date.String}</pubDate>
+                <pubDate>{ParseDate(date.String, culture)}</pubDate>
             </item>");
 
         // move to next
@@ -92,6 +94,11 @@ static string GenerateRss(string items, string url)
     </rss>";
 }
 
+static string ParseDate(string input, CultureInfo culture)
+{
+    return DateTime.Parse(input, culture).ToString("ddd, dd MMM yyyy HH:mm:ss zzz", CultureInfo.InvariantCulture);
+}
+
 // function to extract between two unique
 static (string String, int Start, int End) Extract(string source, string start, string end, int index = 0)
 {
@@ -107,3 +114,6 @@ static (string String, int Start, int End) Extract(string source, string start, 
     // trim white space.
     return (source[startIndex..endIndex].Trim(), startIndex, endIndex);
 }
+
+
+
