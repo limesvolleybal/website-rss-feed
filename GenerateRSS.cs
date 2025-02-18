@@ -22,8 +22,8 @@ try
     string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName, output);
     File.WriteAllText(path, rssContent, Encoding.UTF8);
 
-    // confirm.
-    Console.WriteLine("RSS feed generated successfully.");
+    // confirm feed has been generated successfully.
+    Console.WriteLine("RSS feed has been generated successfully.");
 }
 catch (Exception ex)
 {
