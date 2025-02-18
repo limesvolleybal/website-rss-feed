@@ -19,10 +19,8 @@ try
     string rssContent = GenerateRss(articles, url);
 
     // Step 4: Save to file
-    string docsDirectory = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName);
-    string path = Path.Combine(docsDirectory, output); 
+    string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName, output);
     File.WriteAllText(path, rssContent, Encoding.UTF8);
-
     Console.WriteLine("✅ RSS feed generated successfully.");
 }
 catch (Exception ex)
