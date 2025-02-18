@@ -8,83 +8,32 @@ const string output = "rss.xml";
 // attempt to create RSS feed from pre-existing website. 
 try
 {
-    // Fetch source from website. 
+    // fetch source from website. 
     using HttpClient client = new();
     string content = await client.GetStringAsync(url);
 
-    // Extract articles from source.
+    // extract articles from source.
     string articles = ExtractArticles(content);
 
-    // Generate RSS feed from articles.
-    string rssContent = GenerateRSS(articles, url);
+    // generate RSS feed from articles.
+    string rss = GenerateRSS(articles, url);
 
-    // Save RSS feed to local file.
-    //string path = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", output);
+    // save RSS feed to local directory.
     string path = Path.Combine(Directory.GetCurrentDirectory(), output);
-    File.WriteAllText(path, rssContent, Encoding.UTF8);
+    File.WriteAllText(path, rss, Encoding.UTF8);
 
     // confirm feed has been generated successfully.
     Console.WriteLine($"RSS feed has been generated successfully at {path}.");
 }
 catch (Exception ex)
 {
+    // failure to either fetch the source, or generate valid RSS from it.
     Console.WriteLine($"Could not generate RSS feed: {ex.Message}");
 }
 
-static string ExtractArticles(string content)
-{
-    // concatenate
-    StringBuilder result = new();
-    CultureInfo culture = new("nl-NL");
-
-    // find start of articles
-    const string startArticle = "<article class=";
-    const string endArticle = "</article>";
-    const string startHeader = "-heading";
-    const string endHeader = "</h2>";
-
-    // initial
-    int articleIndex = 0;
-
-    // traverses over all occurrences of 'start'.
-    while ((articleIndex = content.IndexOf(startArticle, articleIndex)) != -1)
-    {
-        // extract single article from content.
-        var article = Extract(content, startArticle, endArticle, articleIndex);
-        if (article.Start == -1 || article.End == -1) break;
-
-        // hard dependencies (skip article if failed)
-        var header = Extract(article.String, startHeader, endHeader);
-        if (header.Start == -1 || header.End == -1) break;
-        var link = Extract(header.String, "href=\"", "\"");
-        if (link.Start == -1 || link.End == -1) break;
-        var title = Extract(header.String, ">", "</a>", link.End);
-        if (title.Start == -1 || title.End == -1) break;
-
-        // optional (leave empty if failed)
-        var description = Extract(article.String, "<p>", "</p>", header.Start);
-        var image = Extract(article.String, "background-image: url(", ");");
-        var date = Extract(article.String, "jw-news-date\">", "<");
-
-        // append article to result.
-        result.AppendLine($@"
-            <item>
-                <title>{title.String}</title>
-                <link>{url + link.String}</link>
-                <description>{description.String}</description>
-                <pubDate>{ParseDate(date.String, culture)}</pubDate>
-            </item>");
-
-        // move to next
-        articleIndex = article.End;
-    }
-
-    return result.ToString();
-}
-
-static string GenerateRSS(string content, string url)
-{
-    return $@"<?xml version=""1.0"" encoding=""UTF-8"" ?>
+// Generate RSS format.
+static string GenerateRSS(string content, string url) => 
+$@"<?xml version=""1.0"" encoding=""UTF-8"" ?>
     <rss version=""2.0"">
         <channel>
             <title>Limes Volleybal RSS Feed</title>
@@ -93,11 +42,73 @@ static string GenerateRSS(string content, string url)
             {content}
         </channel>
     </rss>";
-}
 
+// Parse dutch date format to RSS date format.
 static string ParseDate(string input, CultureInfo culture)
 {
-    return DateTime.Parse(input, culture).ToString("ddd, dd MMM yyyy HH:mm:ss zzz", CultureInfo.InvariantCulture);
+    return DateTime.Parse(input, culture).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'", CultureInfo.InvariantCulture);
+}
+
+// Extract all individual articles from website.
+static string ExtractArticles(string content)
+{
+    // variables
+    StringBuilder result = new();
+    CultureInfo culture = new("nl-NL");
+
+    // strings that denote assumed start and ending of seareched for information.
+    const string articleStart       = "<article class=";
+    const string articleEnd         = "</article>";
+    const string headerStart        = "-heading";
+    const string headerEnd          = "</h2>";
+    const string linkStart          = "href=\"";
+    const string linkEnd            = "\"";
+    const string titleStart         = ">";
+    const string titleEnd           = "</a>";
+    const string descriptionStart   = "<p>";
+    const string descriptionEnd     = "</p>";
+    const string imageStart         = "background-image: url(";
+    const string imageEnd           = ");";
+    const string dateStart          = "jw-news-date\">";
+    const string dateEnd            = "<";
+
+    // initial
+    int articleIndex = 0;
+
+    // traverses over all occurrences of 'start'.
+    while ((articleIndex = content.IndexOf(articleStart, articleIndex)) != -1)
+    {
+        // extract single article from content.
+        var article = Extract(content, articleStart, articleEnd, articleIndex);
+        if (article.Start == -1 || article.End == -1) break;
+
+        // hard dependencies (skip article if failed)
+        var header = Extract(article.String, headerStart, headerEnd);
+        if (header.Start == -1 || header.End == -1) break;
+        var link = Extract(header.String, linkStart, linkEnd);
+        if (link.Start == -1 || link.End == -1) break;
+        var title = Extract(header.String, titleStart, titleEnd, link.End);
+        if (title.Start == -1 || title.End == -1) break;
+
+        // optional (leave empty if failed)
+        var description = Extract(article.String, descriptionStart, descriptionEnd, header.Start);
+        var image = Extract(article.String, imageStart, imageEnd);
+        var date = Extract(article.String, dateStart, dateEnd);
+
+        // append article to result.
+        result.AppendLine($@"
+            <item>
+                <title>{title.String}</title>
+                <link>{url + link.String}</link>
+                <description>{description.String} <![CDATA[<img src=""https://www.example.com/images/sample-image.jpg"" alt=""Sample Image"">]]></description>
+                <pubDate>{ParseDate(date.String, culture)}</pubDate>
+            </item>");
+
+        // move to next
+        articleIndex = article.End;
+    }
+
+    return result.ToString();
 }
 
 // function to extract between two unique
