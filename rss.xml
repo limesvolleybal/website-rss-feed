@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+    <rss version="2.0">
+        <channel>
+            <title>BBC News RSS Feed</title>
+            <link>https://www.bbc.com/news</link>
+            <description>Latest news from BBC</description>
+            
+        </channel>
+    </rss>
