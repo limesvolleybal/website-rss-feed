@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("website-rss-feed")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+defa966586a38477816bbc020fc24fd3e81612f0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfe26d6c57f1a49ab79660fdaa85ea94d13353d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("website-rss-feed")]
 [assembly: System.Reflection.AssemblyTitleAttribute("website-rss-feed")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

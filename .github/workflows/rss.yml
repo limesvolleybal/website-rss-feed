@@ -37,23 +37,16 @@ jobs:
         run: |
           ls -R
 
-      # Step 6: Move generated file to a trackable folder
-      - name: Move generated file to trackable folder
-        run: |
-          mv ./bin/Release/net8.0/rss.xml .rss.xml  # Adjust paths as needed
-          git add ./rss.xml
-          git status 
-
-      # Step 7: Commit and push changes
+      # Step 6: Commit and push changes
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
           # Commit and push if changes exist
-          if git diff --exit-code ./generated/rss.xml; then
-            echo "No changes to commit"
+          if git diff --exit-code ./rss.xml; then
+            echo "No RSS changes to commit"
           else
-            git commit -m "Update RSS feed"
+            git commit -m "Updated RSS feed"
             git push
           fi
