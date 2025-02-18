@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>My Website RSS Feed</title>
+        <link>https://example.com</link>
+        <description>Latest updates from my website</description>
+        <item>
+            <title>Example Article</title>
+            <link>https://example.com/article</link>
+            <description>Summary of the article</description>
+            <pubDate>Mon, 18 Feb 2025 12:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
