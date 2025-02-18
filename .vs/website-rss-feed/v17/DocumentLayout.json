@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\luukd\\source\\repos\\website-rss-feed\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5D7AAAA2-4C8F-4462-97F0-A1514516F7C6}|website-rss-feed.csproj|c:\\users\\luukd\\source\\repos\\website-rss-feed\\generaterss.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D7AAAA2-4C8F-4462-97F0-A1514516F7C6}|website-rss-feed.csproj|solutionrelative:generaterss.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5D7AAAA2-4C8F-4462-97F0-A1514516F7C6}|website-rss-feed.csproj|c:\\users\\luukd\\source\\repos\\website-rss-feed\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{5D7AAAA2-4C8F-4462-97F0-A1514516F7C6}|website-rss-feed.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D7AAAA2-4C8F-4462-97F0-A1514516F7C6}|website-rss-feed.csproj|c:\\users\\luukd\\source\\repos\\website-rss-feed\\rss.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{5D7AAAA2-4C8F-4462-97F0-A1514516F7C6}|website-rss-feed.csproj|solutionrelative:rss.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{5D7AAAA2-4C8F-4462-97F0-A1514516F7C6}|website-rss-feed.csproj|c:\\users\\luukd\\source\\repos\\website-rss-feed\\generaterss.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D7AAAA2-4C8F-4462-97F0-A1514516F7C6}|website-rss-feed.csproj|solutionrelative:generaterss.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,39 +34,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": ".gitignore",
               "DocumentMoniker": "C:\\Users\\luukd\\source\\repos\\website-rss-feed\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
               "ToolTip": "C:\\Users\\luukd\\source\\repos\\website-rss-feed\\.gitignore",
               "RelativeToolTip": ".gitignore",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIQAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAI8BAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-02-18T16:58:55.964Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "rss.xml",
-              "DocumentMoniker": "C:\\Users\\luukd\\source\\repos\\website-rss-feed\\rss.xml",
-              "RelativeDocumentMoniker": "rss.xml",
-              "ToolTip": "C:\\Users\\luukd\\source\\repos\\website-rss-feed\\rss.xml",
-              "RelativeToolTip": "rss.xml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2025-02-18T16:51:57.846Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "GenerateRSS.cs",
               "DocumentMoniker": "C:\\Users\\luukd\\source\\repos\\website-rss-feed\\GenerateRSS.cs",
               "RelativeDocumentMoniker": "GenerateRSS.cs",
               "ToolTip": "C:\\Users\\luukd\\source\\repos\\website-rss-feed\\GenerateRSS.cs",
               "RelativeToolTip": "GenerateRSS.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-18T12:52:57.729Z",
               "EditorCaption": ""

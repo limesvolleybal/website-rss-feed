@@ -1,5 +1,4 @@
 C:\Users\luukd\source\repos\website-rss-feed\bin\Debug\net8.0\website-rss-feed.exe
-C:\Users\luukd\source\repos\website-rss-feed\bin\Debug\net8.0\rss.xml
 C:\Users\luukd\source\repos\website-rss-feed\bin\Debug\net8.0\website-rss-feed.deps.json
 C:\Users\luukd\source\repos\website-rss-feed\bin\Debug\net8.0\website-rss-feed.runtimeconfig.json
 C:\Users\luukd\source\repos\website-rss-feed\bin\Debug\net8.0\website-rss-feed.dll

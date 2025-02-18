@@ -6,47 +6,36 @@ on:
   workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:
-  generate-rss:
-    runs-on: ubuntu-latest  # Using Ubuntu as the base runner for .NET
+  generate-file:
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # Step 2: Set up .NET SDK
-      - name: Set up .NET
+      - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0'  # Use the version of .NET your project is targeting
+          dotnet-version: '8.0.x'  # Adjust version as needed
 
-      # Step 3: Restore the project dependencies
-      - name: Restore dependencies
-        run: dotnet restore website-rss-feed.sln  # Adjust with your solution file path
+      - name: Restore Dependencies
+        run: dotnet restore
 
-      # Step 4: Build the project
-      - name: Build the project
-        run: dotnet build website-rss-feed.sln --configuration Release
+      - name: Build Project
+        run: dotnet build --configuration Release
 
-      # Step 5: Run the GenerateRSS.cs program
-      - name: Run RSS Generation
+      - name: Run .NET Project to Generate File
         run: dotnet run --project website-rss-feed.csproj
 
-      # Debugging: List files in the build folder (for debugging)
-      - name: List files
-        run: |
-          ls -R
+      - name: Verify Generated File Exists
+        run: ls -la rss.xml
 
-      # Step 6: Commit and push changes
-      - name: Commit and push changes
+      - name: Commit and Push Changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-
-          # Commit and push if changes exist
-          if git diff --exit-code ./rss.xml; then
-            echo "No RSS changes to commit"
-          else
-            git commit -m "Updated RSS feed"
-            git push
-          fi
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add rss.xml
+          git commit -m "Auto-generated rss.xml [skip ci]" || echo "No changes to commit"
+          git push
