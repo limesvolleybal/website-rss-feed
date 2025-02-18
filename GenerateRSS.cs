@@ -3,7 +3,7 @@ using System.Text;
 
 // variables
 const string url     = "https://www.limesvolleybal.nl/";
-const string output  = "Docs/rss.xml";
+const string output  = "rss.xml";
 
 // attempting to create xml from existing website. 
 try
