@@ -5,27 +5,29 @@ using System.Text;
 const string url     = "https://www.limesvolleybal.nl/";
 const string output  = "rss.xml";
 
-// attempting to create xml from existing website. 
+// attempt to create RSS feed from pre-existing website. 
 try
 {
-    // Step 1: Fetch html content from the website. 
+    // Fetch source from website. 
     using HttpClient client = new();
     string content = await client.GetStringAsync(url);
 
-    // Step 2: Extract articles from HTML
+    // Extract articles from source.
     string articles = ExtractArticles(content);
 
-    // Step 3: Generate RSS XML
-    string rssContent = GenerateRss(articles, url);
+    // Generate RSS feed from articles.
+    string rssContent = GenerateRSS(articles, url);
 
-    // Step 4: Save to file
+    // Save RSS feed to local file.
     string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName, output);
     File.WriteAllText(path, rssContent, Encoding.UTF8);
-    Console.WriteLine("✅ RSS feed generated successfully.");
+
+    // confirm.
+    Console.WriteLine("RSS feed generated successfully.");
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"❌ Error: {ex.Message}");
+    Console.WriteLine($"Could not generate RSS feed: {ex.Message}");
 }
 
 static string ExtractArticles(string content)
@@ -79,7 +81,7 @@ static string ExtractArticles(string content)
     return result.ToString();
 }
 
-static string GenerateRss(string items, string url)
+static string GenerateRSS(string content, string url)
 {
     return $@"<?xml version=""1.0"" encoding=""UTF-8"" ?>
     <rss version=""2.0"">
@@ -87,7 +89,7 @@ static string GenerateRss(string items, string url)
             <title>Limes Volleybal RSS Feed</title>
             <link>{url}</link>
             <description></description>
-            {items}
+            {content}
         </channel>
     </rss>";
 }

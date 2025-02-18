@@ -1,0 +1,42 @@
+name: Generate RSS Feed
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs every day at midnight UTC
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+
+jobs:
+  generate-rss:
+    runs-on: ubuntu-latest  # Using Ubuntu as the base runner for .NET
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up .NET SDK
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0'  # Use the version of .NET your project is targeting
+
+      # Step 3: Restore the project dependencies
+      - name: Restore dependencies
+        run: dotnet restore website-rss-feed.sln  # Adjust with your solution file path
+
+      # Step 4: Build the project
+      - name: Build the project
+        run: dotnet build website-rss-feed.sln --configuration Release
+
+      # Step 5: Run the GenerateRSS.cs program (assuming it's part of the project)
+      - name: Run RSS Generation
+        run: dotnet run --project website-rss-feed.csproj  # Path to your .csproj file
+
+      # Step 6: Commit and push the generated RSS feed file
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add rss.xml  # Path to your generated RSS file
+          git commit -m "Update RSS feed"
+          git push
