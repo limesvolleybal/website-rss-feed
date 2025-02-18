@@ -26,11 +26,11 @@ jobs:
       - name: Build Project
         run: dotnet build --configuration Release
 
-      - name: Run .NET Project to Generate File
+      - name: Run .NET Project
         run: dotnet run --project website-rss-feed.csproj
 
       - name: Verify Generated File Exists
-        run: ls -la rss.xml
+        run: ls -R
 
       - name: Commit and Push Changes
         run: |
