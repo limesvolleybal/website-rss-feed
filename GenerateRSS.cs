@@ -19,7 +19,7 @@ try
     string rssContent = GenerateRSS(articles, url);
 
     // Save RSS feed to local file.
-    string path = Path.Combine(Directory.GetCurrentDirectory(), output);
+    string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName, output);
     File.WriteAllText(path, rssContent, Encoding.UTF8);
 
     // confirm feed has been generated successfully.
