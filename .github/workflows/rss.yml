@@ -32,30 +32,25 @@ jobs:
       - name: Run RSS Generation
         run: dotnet run --project website-rss-feed.csproj  # Path to your .csproj file
 
-      # Step 6: List files to verify RSS file generation
-      - name: List files in the repo
+      # Step 6: Move the file from the debug/release folder to the main folder
+      - name: Move generated file to main folder
         run: |
-          ls -R
+          # Move the file from debug/release folder to the root or another folder
+          mv ./bin/Release/net8.0/rss.xml ./rss.xml  # Adjust the path as needed
 
-      # Step 7: Check git status
-      - name: Check git status before committing
-        run: |
-          git status
-
-      # Step 8: Commit and push changes
+      # Step 7: Commit and push changes
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-          # Check if the file is tracked by Git
-          git add rss.xml  # Ensure correct path
-          git diff --exit-code rss.xml || echo "Changes detected"
-
-          # If there are changes, commit and push
+          # Add the moved file to git and commit
+          git add rss.xml
+          
+          # Check if the file has changes
           if git diff --exit-code rss.xml; then
             echo "No changes to commit"
           else
-            git commit -m "Update RSS feed"
+            git commit -m "Move generated RSS feed to main folder"
             git push
           fi
