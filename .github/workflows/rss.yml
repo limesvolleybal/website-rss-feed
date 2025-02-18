@@ -32,11 +32,20 @@ jobs:
       - name: Run RSS Generation
         run: dotnet run --project website-rss-feed.csproj  # Path to your .csproj file
 
-      # Step 6: Commit and push the generated RSS feed file
+      # Step 6: Check for changes and commit if there are any
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add rss.xml  # Path to your generated RSS file
-          git commit -m "Update RSS feed"
-          git push
+
+          # Check if there are changes to commit
+          git diff --exit-code || echo "Changes detected, preparing to commit."
+
+          # If no changes, print a message and exit without failure
+          if git diff --exit-code; then
+            echo "No changes to commit"
+          else
+            git add rss.xml  # Ensure this path is correct
+            git commit -m "Update RSS feed"
+            git push
+          fi
