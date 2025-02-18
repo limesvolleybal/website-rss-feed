@@ -36,7 +36,7 @@ static string GenerateRSS(string content, string url) =>
 $@"<?xml version=""1.0"" encoding=""UTF-8"" ?>
     <rss version=""2.0"">
         <channel>
-            <title>Limes Volleybal RSS Feed</title>
+            <title>Limes Volleybal Nieuws</title>
             <link>{url}</link>
             <description></description>
             {content}
@@ -100,7 +100,7 @@ static string ExtractArticles(string content)
             <item>
                 <title>{title.String}</title>
                 <link>{url + link.String}</link>
-                <description>{description.String} <![CDATA[<img src=""https://www.example.com/images/sample-image.jpg"" alt=""Sample Image"">]]></description>
+                <description>{description.String} <![CDATA[<img src=""{image.String}"" alt=""Sample Image"">]]></description>
                 <pubDate>{ParseDate(date.String, culture)}</pubDate>
             </item>");
 
