@@ -2,8 +2,8 @@ using System.Globalization;
 using System.Text;
 
 // variables
-const string url     = "https://www.limesvolleybal.nl/";
-const string output  = "rss.xml";
+const string url = "https://www.limesvolleybal.nl/";
+const string output = "rss.xml";
 
 // attempt to create RSS feed from pre-existing website. 
 try
@@ -19,11 +19,12 @@ try
     string rssContent = GenerateRSS(articles, url);
 
     // Save RSS feed to local file.
-    string path = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", output);
+    //string path = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", output);
+    string path = Path.Combine(Directory.GetCurrentDirectory(), output);
     File.WriteAllText(path, rssContent, Encoding.UTF8);
 
     // confirm feed has been generated successfully.
-    Console.WriteLine($"RSS feed has been generated successfully at { path }.");
+    Console.WriteLine($"RSS feed has been generated successfully at {path}.");
 }
 catch (Exception ex)
 {
