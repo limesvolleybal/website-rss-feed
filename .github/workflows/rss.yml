@@ -2,7 +2,9 @@ name: Generate RSS Feed
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight UTC
+    - cron: '0 10 * * *'  # 12:00 CEST
+    - cron: '0 14 * * *'  # 16:00 CEST
+    - cron: '0 18 * * *'  # 20:00 CEST
   workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:
